@@ -7,7 +7,7 @@ int debounceTime=20;
 int new_count=0;
 void setup() {
   Serial.begin(9600);
-  Serial.println("https://github.com/Oskimark/tippingbucket/new/main");
+  Serial.println("https://github.com/Oskimark/tippingbucket/blob/main/tippingbucket");
 pinMode(buttonPin, INPUT_PULLUP);
 attachInterrupt(digitalPinToInterrupt(3),ISR_button,CHANGE);
 }
