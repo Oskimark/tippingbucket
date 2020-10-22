@@ -1,0 +1,38 @@
+int buttonPin=3;
+int toggleState;
+int lastButtonState=1;
+long unsigned int lastPress;
+volatile int buttonFlag;
+int debounceTime=20;
+int new_count=0;
+void setup() {
+  Serial.begin(9600);
+  Serial.println("https://github.com/Oskimark/tippingbucket/new/main");
+pinMode(buttonPin, INPUT_PULLUP);
+attachInterrupt(digitalPinToInterrupt(3),ISR_button,CHANGE);
+}
+
+void loop() {
+  if((millis()-lastPress)> debounceTime && buttonFlag)
+  {
+    lastPress =millis();
+    if(digitalRead(buttonPin)== 0 && lastButtonState == 1)
+    {
+     toggleState =!toggleState;
+     new_count++;
+     Serial.println(new_count);
+     
+     lastButtonState=0;
+    }
+    else if (digitalRead(buttonPin) ==1 && lastButtonState ==0)
+    {
+      lastButtonState=1;
+    }
+    buttonFlag=0;
+   }
+}
+
+void ISR_button()
+{
+  buttonFlag =1;
+}
